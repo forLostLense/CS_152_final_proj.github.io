@@ -20,13 +20,27 @@
       
       
       <h3>
-      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Datasets</h3>
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset and Setup</h3>
       <p> We use the IMDB-WIKI data set, which contains 500k+ faces images with age and gender labels scraped from IMDB and Wikipedia. 
-      It is the largest labeled age dataset available online. As we could see in the diagram, this data set is unblanced with a concentration
-      of range 20-40. </p>
+      It is the largest labeled age dataset available online. It is unblanced with a concentratd distribution of age between 20 and 40. 
+      All pictures in this dataset are raw pictures scraped from websites and need pre-processing. To pre-preocess the images, we use 
+      <strong> dlib </strong> to align the faces. This library will return four coordinates of cropped face box. We choose to keep 40% 
+      margin of cropped faces because this attempt preserves more context information which improve their results accroding to the experiment
+      in IMDB-WIKI paper. After that, we resize the faces to 224x224 to fit the size of our convolutional neural network. Due to the limitation
+      of hardware, we only use the WIKI datasets which contains 62,359 pictures. </p>
+      
+      <p> We implement our model using Keras and Tensorflow library. We've run on two GPUS. One is Bridges supercomputer at the Pittsburgh 
+      Supercomputing Center (PSC). The other one an Amazon EC2 g2.2x large GPU using community image vict0sch, with 10GB memory. </p>
       
       
+      <h4> 
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model Implementation</h4>
       
+      <h5> 
+       <a id="user-content-header-3" class="anchor" href="#header-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>I. VGG 16</h5>
+      
+      <p> 
+      </p>
       
       
       
