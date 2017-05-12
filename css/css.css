@@ -1,0 +1,26 @@
+
+.right {
+	float: right;
+	max-width: 250px;
+	margin: 10px;
+}
+
+.right-pic {
+	max-height: 500px;
+	text-align: center;
+}
+
+.right-pic-big {
+	max-height: 630px;
+	text-align: center;
+}
+
+
+.graph {
+	width: 48%;
+	margin: 3px;
+}
+
+p {
+	text-align: justify;
+}
