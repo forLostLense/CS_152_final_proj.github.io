@@ -18,14 +18,14 @@
 
     <section class="main-content">
       
-      <h1>
-      <a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Header 1</h1>
+      <h3>
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Header 1</h3>
 
       The problem is recognizing human age using deep learning approch consists of image classification and softmax expectation rather than classic 
       regression approach. 
       
-      <h3>
-      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset and Setup</h3>
+      <h4>
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset and Setup</h4>
       <p> We use the IMDB-WIKI data set, which contains 500k+ faces images with age and gender labels scraped from IMDB and Wikipedia. 
       It is the largest labeled age dataset available online. It is unblanced with a concentratd distribution of age between 20 and 40. 
       All pictures in this dataset are raw pictures scraped from websites and need pre-processing. To pre-preocess the images, we use 
@@ -34,15 +34,16 @@
       in IMDB-WIKI paper. After that, we resize the faces to 224x224 to fit the size of our convolutional neural network. Due to the limitation
       of hardware, we only use the WIKI datasets which contains 62,359 pictures. </p>
       
-      <p> We implement our model using Keras and Tensorflow library. We've run on two GPUS. One is Bridges supercomputer at the Pittsburgh 
-      Supercomputing Center (PSC). The other one an Amazon EC2 g2.2x large GPU using community image vict0sch, with 10GB memory. </p>
+      <p> We implement our model using <strong> Keras</strong> and <strong>Tensorflow </strong>library. We've run on two GPUS. One is <strong> Bridges </strong>
+      supercomputer at the Pittsburgh Supercomputing Center (PSC). The other one an <strong> Amazon EC2 g2.2x large GPU </strong>using community image vict0sch, 
+      with 10GB memory. </p>
       
       <hr>
+      <h5> 
+      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model Implementation</h5>
+      <hr>
       <h6> 
-      <a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model Implementation</h6>
-      
-      <h7> 
-       <a id="user-content-header-3" class="anchor" href="#header-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>I. VGG 16</h7>
+       <a id="user-content-header-3" class="anchor" href="#header-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h6>
       
       <p> 
       
