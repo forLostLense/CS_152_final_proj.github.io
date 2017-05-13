@@ -4,7 +4,7 @@
 #
 # USAGE: Modify the "directory" variable to point to the directories 
 # containing the training and validation data. The output files will appear 
-# in the same folder as saveData.py and have the same name as the directory variable,
+# in the same folder as saveAgeData.py and have the same name as the directory variable,
 # with 'data_' or 'ages_ ' on the front.
 #
 
@@ -12,7 +12,7 @@ import numpy
 import scipy.ndimage
 import os
 
-directory = "train_set"
+directory = "validation_set"
 imgWidth = 224
 imgHeight = 224
 

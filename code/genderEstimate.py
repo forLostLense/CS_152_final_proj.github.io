@@ -3,7 +3,7 @@
 # trying to classify faces by gender. The program wll create files containing the final 
 # weights and graphs of the training process.
 #
-# USAGE: First run saveGData to generate two data files, one containing a matrix of 
+# USAGE: First run saveGenderData.py to generate two data files, one containing a matrix of 
 # images, another creating a matrix of genders.  Place these files in the same 
 # directory as gender2.py.  
 #
@@ -34,11 +34,11 @@ from keras.utils import plot_model
 
 
 # Variables
-trainDirectory = "gender_train_set"
-validationDirectory = "gender_validation_set"
-epochs = 20
+trainDirectory = "gender_info/gender_train_set"
+validationDirectory = "gender_info/gender_validation_set"
+epochs = 30
 batchSize = 10
-cutoff = .5 # This tells us what proportion of our data set to use
+cutoff = 1 # This tells us what proportion of our data set to use
 
 
 
@@ -116,7 +116,7 @@ def makePrettyPics(history):
 	plt.ylabel('accuracy')
 	plt.xlabel('epoch')
 	plt.legend(['train', 'test'], loc='upper left')
-	savefig('acc.png')
+	plt.savefig('acc.png')
 
 	# summarize history for loss
 	plt.plot(history.history['loss'])
@@ -125,7 +125,7 @@ def makePrettyPics(history):
 	plt.ylabel('loss')
 	plt.xlabel('epoch')
 	plt.legend(['train', 'test'], loc='upper left')
-	savefig('loss.png')
+	plt.savefig('loss.png')
 
 
 

@@ -23,7 +23,7 @@
 	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Problem</h1>
 
 	The problem we are attempting to solve is the challenge of estimating a person's age from their face.  Rather than following the classic approach of treating this as a regression problem, we will approach 
-	this problem using convolutional neural networks which consists of image classification and softmax. 
+	this problem using convolutional neural networks. 
 	
 	<hr>
 
@@ -32,8 +32,10 @@
 	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h1>
 	<h3>
 	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset</h3>
-	<p> We used the IMDB-WIKI data set, which contains 500k+ images of with age and gender labels scraped from the IMDB website and and Wikipedia. 
+	<p> We used the IMDB-WIKI data set, which contains 500k+ images with age and gender labels scraped from the IMDB website and and Wikipedia. 
 	It is the largest labeled age dataset available online. The data set is unblanced, containing a concentrated distribution of people ages 20 to 40. 
+
+	We found this data set attached to the paper "DEX: Deep EXpectation of apparent age from a single image" (Rothe, Timofte, & Van Gool).  This paper was also the starting point of inspiration for our network designs.
 	
 
 	<h3>
@@ -41,15 +43,15 @@
 
 
 	All pictures in this dataset are raw pictures scraped from websites and required pre-processing. To pre-process the images, we used the 
-	<strong> dlib </strong> library to align the faces. This library returns the four coordinates of the box contianing the face. We chose to keep a 40% margin around the cropped faces because, according to a paper which also tried to estimeate the ages of individuals in this data set, the additional margin preserves more context information and improves the result. After that, we resized the faces to the same size (224x224) so they could be fed into our convolutional neural network. 
+	<strong> dlib </strong> library to align the faces. This library returns the four coordinates of the box contianing the face. We chose to keep a 40% margin around the cropped faces because, according to the paper "DEX: Deep EXpectation of apparent age from a single image" (Rothe, Timofte, & Van Gool), the additional margin preserves more context information and improves the result. After that, we resized the faces to the same size (224x224) so they could be fed into our convolutional neural network. 
 
-	Due to hardware limitations, we did not have the time or processing power to run our network on the entire data set. Instead, we only used the WIKI datasetm which contains 62,359 pictures. </p>
+	Due to hardware limitations, we did not have the time or processing power to run our network on the entire data set. Instead, we only used the WIKI dataset, which contains 62,359 pictures. </p>
 
 
 	<h3>
 	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hardware</h3>
 	
-	<p> We implemented our model using the Keras library, with a TensorFlow backend. We've run our code on two GPUS - the Bridges supercomputer at the Pittsburgh Supercomputing Center (PSC) and an Amazon EC2 g2.2x large GPU using community image vict0sch, with 10GB memory. </p>
+	<p> We implemented our model using the Keras library with a TensorFlow backend. We've run our code on two GPUs - the Bridges supercomputer at the Pittsburgh Supercomputing Center (PSC) and an Amazon EC2 g2.2x large GPU using community image vict0sch, with 10GB memory. </p>
 	
 	<hr>
 
@@ -66,7 +68,7 @@
 	
 	<p> 
 	<b><i>Motivation:</i></b>
-	We first began by trying to implement the VGG16 architecture, an architecture commonly used for image classification problems. As shown in Figure 1, the VGG16 architecture contains 12 convolutional layers with ReLu activation functions interspersed with four max pooling layers, followed by several fully connected layers.
+	We first began by trying to implement the VGG16 architecture, an architecture commonly used for image classification problems. As shown in Figure 1, the VGG16 architecture contains 12 convolutional layers with ReLu activation functions. These are interspersed with four max pooling layers, followed by several fully connected layers.
 	</p>
 
 	<img src="pics/vgg16Architecture.png"/>
@@ -74,7 +76,7 @@
 
 	<p>
 	<b><i>Implementation:</i></b>
-	We found a Keras implementation of the VGG16 architecture designed to be used with ImageNet.  The last layer of the model originally contained a softmax function which outputted a length-1000 array, the value of which represented the probability that the input belonged to each of the 1000 object classes. We modified the code to output a length-100 array, each index of which corresponds to one age.  We began with weights trained on ImageNet, then modified these weights as we trained on our own data set.
+	We found a Keras implementation of the VGG16 architecture designed to be used with ImageNet.  The last layer of the model originally contained a softmax function which outputted a length-1000 array, each value representing the probability that the input belonged to each of the 1000 object classes. We modified the code to output a length-100 array, each index of which corresponds to one age.  We began with weights trained on ImageNet, then modified these weights as we trained on our own data set.
 	</p>
 
 	<p>
@@ -82,17 +84,6 @@
 	The model did not train very well.  Because the model was so large, training took a long time, so to train in a reasonable timeframe we were forced to only use around 2000 images from our dataset.  Even so, after several epochs, the training accuracy still remained very low and was not increasing. 
 	</p>
 
-
-	<div style="text-align:justify;">
-		<img src="pics/fineTuningModel.png" class="right-pic"/>
-		<br/>Figure 2: Top-level model we implemented on top of VGG16.<br/>
-		<br/>
-		<img src="pics/fineTuning.png" class="right-pic"/>
-		<br/>Figure 3: This diagram shows our planned fine-tuning strategy. The blue blocks (part of the VGG16 architecture) would remain frozen while we trained our top-level model.<br/>
-		<br/>
-		<img src="pics/new Model.png" class="right-pic-big"/>
-		<br/>Figure 4: New Convolutional Model<br/>
-	</div>
 
 	<h3>
 	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>II. Fine-Tuning VGG16</h3>
@@ -106,7 +97,7 @@
 
 	
 	<p> 
-	<b><i>Implementation:</i></b> Inspired by an implementation which fine-tuned a VGG16 model trained on ImageNet to differentiate dogs from cats, we created a top-level model containing two convolutional layers (the full model is shown in Figure 2).  We planned to first train our top-level model on our data set, then to refine the weights of the final convolutional block of the VGG16 model, and finally, to train the data all together (VGG16 model + our top-level model).  We were unable to find Keras model pretrained for any age estimation problem, so we instead tried to use a model pre-trained on ImageNet (which classifies objects, including people, into one of 1000 categories).  This process is shown in Fig 3. 
+	<b><i>Implementation:</i></b> Inspired by an implementation which fine-tuned a VGG16 model trained on ImageNet to differentiate dogs from cats, we created a top-level model containing two convolutional layers (the full model is shown in Figure 2).  We planned to first train our top-level model on our data set, then to refine the weights of the final convolutional block of the VGG16 model, and finally, to train the network all together (VGG16 model + our top-level model).  We were unable to find a Keras model pretrained for any age estimation problem, so we instead tried to use a model pre-trained on ImageNet (which classifies objects, including people, into one of 1000 categories).  This process is shown in Fig 3. 
 	</p>
 
 	
@@ -114,7 +105,15 @@
 	<b><i>Result:</i></b> We never got the chance to try the entire model together.  The fine-tuning approach involves first training the top-level model fairly well on the data set while the pre-trained model weights are frozen, then fine-tuning the pre-trained weights to improve accuracy. However, we were unable to accomplish the first step. Our accuracy began extremely low. The training accuracy improved marginally, but the validation accuracy showed little or no increase.
 	</p>
 
+	<div style="text-align:justify;">
+		<img src="pics/fineTuningModel.png" class="right-pic"/>
+		<br/>Figure 2: Top-level model we implemented on top of VGG16.<br/>
+		<br/>
+		<img src="pics/fineTuning.png" class="right-pic"/>
+		<br/>Figure 3: This diagram shows our planned fine-tuning strategy. The blue blocks (part of the VGG16 architecture) would remain frozen while we trained our top-level model.<br/>
+	</div>
 
+	<br/>
 	<h7> 
 	<h3>
 	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>III. New Convolutional Model</h3>
@@ -130,6 +129,9 @@
 	<p>
 	<b><i>Result:</i></b> As we trained our model, the training accuracy increased steadily, but the validation accuracy and loss showed no movement - evidence, we believe, of overfitting.  To deal with this issue, we tried increasing the size of our dataset, but ran into memory/space errors.  We also tried adding extra dropout layers after each convolutional block, but these just prevented the network from training at all.  We also tried adjusting our batch size and learning rate, but these had no noticeable affect on training.
 	</p>
+		<img src="pics/new Model.png" class="right-pic-big"/>
+		<br/>Figure 4: New Convolutional Model<br/>
+	</div>
 
 	<h3>
 	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>IV. Larger Age Classes</h3>
@@ -178,9 +180,9 @@
 
 
 		<ol>
-			<Li>Overfitting: Even in our most functional models, the training set increased in accuracy until it plateaued near 100%, but the validation set quickly stopped increasing in accuracy. Although we tried to avoid this with methods such as incrasing the number of dropout layers and using more images, overfitting still remains a large problem.</Li>
+			<Li>Overfitting: Even in our most functional models, where the training set increased in accuracy until it plateaued near 100%, the validation set quickly stopped increasing in accuracy. Although we tried to avoid this with methods such as incrasing the number of dropout layers and using more images, overfitting still remains a large problem.</Li>
 			<Li>Difficult classification problem: Age estimation is a difficult problem, because people's apparent age may differ from their actual age. Our data set made the problem even more difficult. The images featured faces at a variety of angles, some with makeup or hats, making it more difficult to identify trends.</Li>
-			<Li>Data set size: Out data set contained over 500k images, but were were only able to use a small subset of them due to hardware restrictions.  Training on the entire data set could help us improve accuracy. </Li>
+			<Li>Data set size: Out data set contained over 500k images, but we were only able to use a small subset of them due to hardware restrictions.  Training on the entire data set could help us improve accuracy. </Li>
 			<Li>The original paper on which we based much of our approach fine-tuned their model based on pretrained weights. The model described in the papwer was the winner of a previous age estimation challenge. However, this set of weights is only available for the Caffe framework. When we realized our methods were not working, it was too late for us to shift from Keras to Caffe. </Li>
 		</ol>
 
@@ -189,14 +191,13 @@
 	  <p> Even so, we are pleased that the results of our network did show some improvement after the attempts described above.</p>
 		<div>
 		<img src="pics/comparison.png" class="graph"/>
-		<br/>Figure 6: Result from other implementation.<br/>	
+		<br/>Figure 6: Result from other implementation.<br/>	<br/>
 	  	</div>
-	      The above diagram is the result from another implementation that used the IMDB-WIKI dataset and a convolutional network. They choose the approach
+	      The above diagram is the result from another implementation in a paper we read that used the IMDB-WIKI dataset and a convolutional network. They choose the approach
 	      of finetuning on WideResNet instead of Caffe pretrained weights. As we could see, their network has the overfitting problem as well.
-	      The training accuracy soars while validation accuracy barely changes. Combining our results with theirs, we think the keys to success of this problem are finding
-	      right weights to fine-tune on and using a less biased datasets. 
-	  <p> The progress we've made through the above 5 attemps, is our network does learn something though the improvement is not very significant
-	      . During first seven epochs, validation loss keeps decreasing and validation accuracy increases from 20% to 30%, which approximately matches how fast training accuracy increases. </p>
+	      The training accuracy soars while validation accuracy barely changes. Combining our results with theirs, we think the keys to success are finding the
+	      right weights to fine-tune on and using simpler dataset with more represenative images. 
+	  <p> The progress we've made has shown that our network does learn a little, though the improvement is not very significant. During the first seven epochs, validation loss decreases and validation accuracy increases from 20% to 30%, which approximately matches how fast the training accuracy increases. We see this as a sign that our network does learn at least a little.</p>
 	
 		
 	
@@ -204,14 +205,15 @@
 	<h1> 
 	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Work</h1>
 	  <p> 
-		For future work, we would like to improve and extend the current network in following ways
+		For future work, we would like to improve and extend the current network in following ways:
 
-	        <ol>    <Li>To improve our convolutional sets, a better dataset could give significantly improved results. Also, we received the advice during presentation that 40% margin might be one source of overfitting. Though this is 
-			the strategy used in original paper to improve accuracy, we are curious whether extra context information contributes to overfitting, or better accuracy. </Li>
-			<Li>Age and gender might be two correlated labels. So the problem is not only a multi-class but also a multi-label problem. We want to try out the approach of multi-label classification on this problem.</Li>
-			<Li>Our original initial plan includes age estimation with self organizing map. Due to time issue, we didn't get the chance to do it. This topic is something we would like to explore try in the future. </Li>
-			<Li>Use our model to solve more real world problems. For example, Nexar has coming data challenge of recognzing signal lights to improve self driving car technology. These real world problems which are solvable by 
-				convolutional network interest us a lot. </Li>
+	        <ol>    <Li>To improve our convolutional net, a better dataset (with all faces facing forward, for instance) could give significantly improved results. Also, we received the advice during our presentation that the 40% margin might be one source of error. Though this is 
+			the strategy used in one paper we read to improve accuracy, we are curious whether extra context information contributes to overfitting or better accuracy. </Li>
+			<Li> We would like to use our network model to try to guess a person's gender from their face. Hopefully, this will be a far easier classification problem since there are only two categories. We began to implement this, but were unable to obtain useful results yet, largely due to the long time needed to train large data sets.</Li>
+			<Li>Age and gender might be two correlated labels - i.e. the gender of an individual might affect their percieved age (according to the neural network). If that is the case, the problem is not only a multi-class but also a multi-label problem. We want to try out the approach of multi-label classification on this problem.</Li>
+			<Li>Our original initial plan included trying out age estimation using a self-organizing map. Due to time issues, we didn't get the chance to do it. This topic is something we would like to explore in the future. </Li>
+			<Li>Use our model to solve more real world problems. For example, Nexar has a coming data challenge which involves recognzing signal lights to improve self driving car technology. These real world problems which are solvable by 
+				convolutional networks similar to ours interest us a lot. </Li>
 	  	</ol>
 
 	</p>
@@ -227,6 +229,9 @@
 	<h1> 
 	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h1>
 	<li>A.Lanitis, C.Draganova, C.Christodoulou. "Comparing different classifiers for automatic age estimation". IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics) (Volume: 34, Issue: 1, Feb. 2004).</li>
+	<li>Baraldilorenzo. "VGG-16 Pre-trained Model for Keras." GithubGist. GitHub, Inc., 16 Jan. 2016. Web. 12 May 2017.</li>
+	<li>Chollet, Francois. "Building Powerful Image Classification Models Using Very Little Data." The Keras Blog. Keras, 5 June 2016. Web. 12 May 2017.</li>
+	<li>Levi, Gil, and Tal Hassner. "Age and gender classification using convolutional neural networks." Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition Workshops. 2015.</li>
 	<li>R.Ranjan, S.Zhou, J.Chen, etc. "Unconstrained Age Estimation with Deep Convolutional Neural Networks". ICCV Workshop, 2015.</li>
 	<li>C.Yan, C.Lang, T.Wang, etc. "Age Estimation Based on Convolutional Neural Network". Pacific Rim Conference on Multimedia, 2014.</li>
 	<li>R.Rothe, R.Timofte, L.Gool, etc. "DEX: Deep EXpectation of apparent age from a single image". Looking at People Workshop, International Conference on Computer Vision (ICCV), 2015.</li>

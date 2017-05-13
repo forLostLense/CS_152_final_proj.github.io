@@ -3,9 +3,9 @@
 # trying to classify faces into 5 gender classes (each 20 years wide). The program will 
 # create files containing the final weights.
 # 
-# USAGE: Run saveData.py to create two files containing numpy arrays of our trainign and
+# USAGE: Run saveAgeData.py to create two files containing numpy arrays of our training and
 # validation data. Make the variables trainDir and validationDir equal to the directory
-# variable used in saveData. 
+# variable used in saveAgeData.py. 
 #  
 # ATTRIBUTIONS: The top-level model design and code structure were obtained here:
 # https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
@@ -30,7 +30,7 @@ from keras.utils import plot_model
 # Variables
 weightsPath = 'transferLearningWeights.h5'
 trainDir = 'train_set'
-validationDir = 'validation_sest'
+validationDir = 'validation_set'
 numTrain = 2000
 numVal = 800
 epochs = 50

@@ -42,8 +42,8 @@ def getData(directory):
 	numPics = int(len([name for name in os.listdir(directory)]))
 
 	#Create empty numpy arrays
-	data = numpy.zeros(shape=(numPics, imgHeight, imgWidth, 3)) #TODO: Standard amt?
-	genders = numpy.zeros(shape=(numPics, 1)) #TODO: IS this the right way to do it?
+	data = numpy.zeros(shape=(numPics, imgHeight, imgWidth, 3))
+	genders = numpy.zeros(shape=(numPics, 1))
 
 	# Dictionary of gender data
 	gDict = numpy.load("gender_info/genderDict.npy").item()

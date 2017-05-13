@@ -3,9 +3,9 @@
 # trying to classify faces into 5 gender classes (each 20 years wide). The program will 
 # create files containing the final weights and graphs of the training process.
 #
-# USAGE: First run saveData to generate two data files, one containing a matrix of 
+# USAGE: First run saveAgeData.py to generate two data files, one containing a matrix of 
 # images, another creating a matrix of ages.  Place these files in the same 
-# directory as nnneural.py. 
+# directory as this file. 
 #
 # ATTRIBUTIONS: We implemented the convolutional model from the paper 
 # "Age and Gender Classification using Convolutional Neural Networks" (Levi & Tassner),
@@ -35,9 +35,9 @@ from keras.utils import plot_model
 # Variables
 trainDirectory = "train_set"
 validationDirectory = "validation_set"
-epochs = 5
+epochs = 40
 batchSize = 10
-cutoff = 1 # This tells us what proportion of our data set to use
+cutoff = .5 # This tells us what proportion of our data set to use
 
 
 
@@ -107,7 +107,7 @@ def makePrettyPics(history):
 	plt.ylabel('accuracy')
 	plt.xlabel('epoch')
 	plt.legend(['train', 'test'], loc='upper left')
-	savefig('acc.png')
+	plt.savefig('acc.png')
 
 	# summarize history for loss
 	plt.plot(history.history['loss'])
@@ -116,7 +116,7 @@ def makePrettyPics(history):
 	plt.ylabel('loss')
 	plt.xlabel('epoch')
 	plt.legend(['train', 'test'], loc='upper left')
-	savefig('loss.png')
+	plt.savefig('loss.png')
 		
 
 
