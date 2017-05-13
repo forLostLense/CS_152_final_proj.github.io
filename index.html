@@ -83,7 +83,7 @@
 	</p>
 
 
-	<div class="right" style="float:right">
+	<div style="align:right">
 		<img src="pics/fineTuningModel.png" class="right-pic"/>
 		<br/>Figure 2: Top-level model we implemented on top of VGG16.<br/>
 		<br/>
@@ -181,7 +181,7 @@
 			<Li>Overfitting: Even in our most functional models, the training set increased in accuracy until it plateaued near 100%, but the validation set quickly stopped increasing in accuracy. Although we tried to avoid this with methods such as incrasing the number of dropout layers and using more images, overfitting still remains a large problem.</Li>
 			<Li>Difficult classification problem: Age estimation is a difficult problem, because people's apparent age may differ from their actual age. Our data set made the problem even more difficult. The images featured faces at a variety of angles, some with makeup or hats, making it more difficult to identify trends.</Li>
 			<Li>Data set size: Out data set contained over 500k images, but were were only able to use a small subset of them due to hardware restrictions.  Training on the entire data set could help us improve accuracy. </Li>
-			<Li>The original paper fine-tuned their model based on pretained weights which is the winner of previous age estimation challenge. However, this set of weights is only available for Caffe framework. It was late for us to change from Keras to Caffe. </Li>
+			<Li>The original paper fine-tuned their model based on pretained weights which is the winner of previous age estimation challenge. However, this set of weights is only available for Caffe framework. It was late for us to shift from Keras to Caffe. </Li>
 		</ol>
 
 	</p>
@@ -191,317 +191,33 @@
 		<img src="pics/comparison.png" class="graph"/>
 		<br/>Figure 6: Result from other implementation.<br/>	
 	  	</div>
-	      Figure 6 is the result from other implementation that uses IMDB-WIKI dataset and convolutional network. They choose the approach
-	      of finetuning on WideResNet instead of Caffe pretrained weights. As we could see, their network also has the overfitting problem 
-	      that training accuracy soars while validation accuracy barely changes. Based on our result and theirs, we think the keys to success are
-	      choose the right weights to fine-tune on, and use better datasets with less bias and inbalance. 
-	  <p> Originally, </p>
+	      The above diagram is the result from another implementation that uses IMDB-WIKI dataset and convolutional network. They choose the approach
+	      of finetuning on WideResNet instead of Caffe pretrained weights. As we could see, their network has the overfitting problem as well.
+	      The training accuracy soars while validation accuracy barely changes. Combine on our result and theirs, we think the keys to success of this problem are
+	      right weights to fine-tune on, and less biased datasets. 
+	  <p> The progress we've made through the above 5 attemps, is our network does learn something though the improvement is not very significant
+	      . During first seven epochs, validation loss keeps decreasing and validation accuracy increases from 20% to 30%, which approximately matches how fast training accuracy increases. </p>
 	
 		
 	
-	
 	<hr>
-	<h9> 
-	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Work</h9>
+	<h1> 
+	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Work</h1>
+	  <p> 
+		For future work, we would like to improve and extend the current network in following ways
 
+	        <ol>    <Li>To improve our convolutional sets, a better dataset could give significantly improved results. Also, we received the advice during presentation that 40% margin might be one source of overfitting. Though this is 
+			the strategy used in original paper to improve accuracy, we are curious whether extra context information contributes to overfitting, or better accuracy. </Li>
+			<Li>Age and gender might be two correlated labels. So the problem is not only a multi-class but also a multi-label problem. We want to try out the approach of multi-label classification on this problem.</Li>
+			<Li>Our original initial plan includes age estimation with self organizing map. Due to time issue, we didn't get the chance to do it. This topic is something we would like to explore try in the future. </Li>
+			<Li>Use our model to solve more real world problems. For example, Nexar has coming data challenge of recognzing signal lights to improve self driving car technology. These real world problems which are solvable by 
+				convolutional network interest us a lot. </Li>
+	  	</ol>
 
-
-
-	<hr>
-	<h10> 
-	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h10>
-	<li></li>
-	<li>This is an unordered list following a header.</li>
-	<li>This is an unordered list following a header.</li>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<p>Text can be <strong>bold</strong>, <em>italic</em>, or <del>strikethrough</del>. <a href="https://github.com">Links</a> should be blue with no underlines (unless hovered over).</p>
-
-	<p>There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs.</p>
-
-	<p>There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs.</p>
-
-	<blockquote>
-	<p>There should be no margin above this first sentence.</p>
-
-	<p>Blockquotes should be a lighter gray with a gray border along the left side.</p>
-
-	<p>There should be no margin below this final sentence.</p>
-	</blockquote>
-
-	<h1>
-	<a id="user-content-header-1" class="anchor" href="#header-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Header 1</h1>
-
-	<p>This is a normal paragraph following a header. Bacon ipsum dolor sit amet t-bone doner shank drumstick, pork belly porchetta chuck sausage brisket ham hock rump pig. Chuck kielbasa leberkas, pork bresaola ham hock filet mignon cow shoulder short ribs biltong.</p>
-
-	<h2>
-	<a id="user-content-header-2" class="anchor" href="#header-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Header 2</h2>
-
-	<blockquote>
-	<p>This is a blockquote following a header. Bacon ipsum dolor sit amet t-bone doner shank drumstick, pork belly porchetta chuck sausage brisket ham hock rump pig. Chuck kielbasa leberkas, pork bresaola ham hock filet mignon cow shoulder short ribs biltong.</p>
-	</blockquote>
-
-	<h3>
-	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Header 3</h3>
-
-	<pre><code>This is a code block following a header.</code></pre>
-
-
-	<ul class="task-list">
-	<li>This is an unordered list following a header.</li>
-	<li>This is an unordered list following a header.</li>
-	<li>This is an unordered list following a header.</li>
-	</ul>
-
-	<h5>
-	<a id="user-content-header-5" class="anchor" href="#header-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Header 5</h5>
-
-	<ol class="task-list">
-	<li>This is an ordered list following a header.</li>
-	<li>This is an ordered list following a header.</li>
-	<li>This is an ordered list following a header.</li>
-	</ol>
-
-	<h6>
-	<a id="user-content-header-6" class="anchor" href="#header-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Header 6</h6>
-
-	<table>
-	<thead>
-	<tr>
-	<th>What</th>
-	<th>Follows</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<td>A table</td>
-	<td>A header</td>
-	</tr>
-	<tr>
-	<td>A table</td>
-	<td>A header</td>
-	</tr>
-	<tr>
-	<td>A table</td>
-	<td>A header</td>
-	</tr>
-	</tbody>
-	</table>
-
-	<hr>
-
-	<p>There's a horizontal rule above and below this.</p>
-
-	<hr>
-
-	<p>Here is an unordered list:</p>
-
-	<ul class="task-list">
-	<li>Salt-n-Pepa</li>
-	<li>Bel Biv DeVoe</li>
-	<li>Kid 'N Play</li>
-	</ul>
-
-	<p>And an ordered list:</p>
-
-	<ol class="task-list">
-	<li>Michael Jackson</li>
-	<li>Michael Bolton</li>
-	<li>Michael Bublé</li>
-	</ol>
-
-	<p>And an unordered task list:</p>
-
-	<ul class="task-list">
-	<li class="task-list-item">
-	<input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> Create a sample markdown document</li>
-	<li class="task-list-item">
-	<input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> Add task lists to it</li>
-	<li class="task-list-item">
-	<input type="checkbox" class="task-list-item-checkbox" disabled=""> Take a vacation</li>
-	</ul>
-
-	<p>And a "mixed" task list:</p>
-
-	<ul class="task-list">
-	<li class="task-list-item">
-	<input type="checkbox" class="task-list-item-checkbox" disabled=""> Steal underpants</li>
-	<li>?</li>
-	<li class="task-list-item">
-	<input type="checkbox" class="task-list-item-checkbox" disabled=""> Profit!</li>
-	</ul>
-
-	<p>And a nested list:</p>
-
-	<ul class="task-list">
-	<li>Jackson 5
-
-	<ul class="task-list">
-	<li>Michael</li>
-	<li>Tito</li>
-	<li>Jackie</li>
-	<li>Marlon</li>
-	<li>Jermaine</li>
-	</ul>
-	</li>
-	<li>TMNT
-
-	<ul class="task-list">
-	<li>Leonardo</li>
-	<li>Michelangelo</li>
-	<li>Donatello</li>
-	<li>Raphael</li>
-	</ul>
-	</li>
-	</ul>
-
-	<p>Definition lists can be used with HTML syntax. Definition terms are bold and italic.</p>
-
-	<dl>
-	    <dt>Name</dt>
-	    <dd>Godzilla</dd>
-	    <dt>Born</dt>
-	    <dd>1952</dd>
-	    <dt>Birthplace</dt>
-	    <dd>Japan</dd>
-	    <dt>Color</dt>
-	    <dd>Green</dd>
-	</dl>
-
-	<hr>
-
-	<p>Tables should have bold headings and alternating shaded rows.</p>
-
-	<table>
-	<thead>
-	<tr>
-	<th>Artist</th>
-	<th>Album</th>
-	<th>Year</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<td>Michael Jackson</td>
-	<td>Thriller</td>
-	<td>1982</td>
-	</tr>
-	<tr>
-	<td>Prince</td>
-	<td>Purple Rain</td>
-	<td>1984</td>
-	</tr>
-	<tr>
-	<td>Beastie Boys</td>
-	<td>License to Ill</td>
-	<td>1986</td>
-	</tr>
-	</tbody>
-	</table>
-
-	<p>If a table is too wide, it should condense down and/or scroll horizontally.</p>
-
-	<table>
-	<thead>
-	<tr>
-	<th>Artist</th>
-	<th>Album</th>
-	<th>Year</th>
-	<th>Label</th>
-	<th>Awards</th>
-	<th>Songs</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<td>Michael Jackson</td>
-	<td>Thriller</td>
-	<td>1982</td>
-	<td>Epic Records</td>
-	<td>Grammy Award for Album of the Year, American Music Award for Favorite Pop/Rock Album, American Music Award for Favorite Soul/R&amp;B Album, Brit Award for Best Selling Album, Grammy Award for Best Engineered Album, Non-Classical</td>
-	<td>Wanna Be Startin' Somethin', Baby Be Mine, The Girl Is Mine, Thriller, Beat It, Billie Jean, Human Nature, P.Y.T. (Pretty Young Thing), The Lady in My Life</td>
-	</tr>
-	<tr>
-	<td>Prince</td>
-	<td>Purple Rain</td>
-	<td>1984</td>
-	<td>Warner Brothers Records</td>
-	<td>Grammy Award for Best Score Soundtrack for Visual Media, American Music Award for Favorite Pop/Rock Album, American Music Award for Favorite Soul/R&amp;B Album, Brit Award for Best Soundtrack/Cast Recording, Grammy Award for Best Rock Performance by a Duo or Group with Vocal</td>
-	<td>Let's Go Crazy, Take Me With U, The Beautiful Ones, Computer Blue, Darling Nikki, When Doves Cry, I Would Die 4 U, Baby I'm a Star, Purple Rain</td>
-	</tr>
-	<tr>
-	<td>Beastie Boys</td>
-	<td>License to Ill</td>
-	<td>1986</td>
-	<td>Mercury Records</td>
-	<td>noawardsbutthistablecelliswide</td>
-	<td>Rhymin &amp; Stealin, The New Style, She's Crafty, Posse in Effect, Slow Ride, Girls, (You Gotta) Fight for Your Right, No Sleep Till Brooklyn, Paul Revere, Hold It Now, Hit It, Brass Monkey, Slow and Low, Time to Get Ill</td>
-	</tr>
-	</tbody>
-	</table>
-
-	<hr>
-
-	<p>Code snippets like <code>var foo = "bar";</code> can be shown inline.</p>
-
-	<p>Also, <code>this should vertically align</code> <del><code>with this</code></del> <del>and this</del>.</p>
-
-	<p>Code can also be shown in a block element.</p>
-
-	<pre><code>var foo = "bar";
-
-</code></pre>
-
-	<p>Code can also use syntax highlighting.</p>
-
-	<div class="highlight highlight-Javascript"><pre><span class="pl-k">var</span> foo <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>;</pre></div>
-
-	<pre><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.</code></pre>
-
-	<div class="highlight highlight-Javascript"><pre><span class="pl-k">var</span> foo <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>The same thing is true for code with syntax highlighting. A single line of code should horizontally scroll if it is really long.<span class="pl-pds">"</span></span>;</pre></div>
-
-	<p>Inline code inside table cells should still be distinguishable.</p>
-
-	<table>
-	<thead>
-	<tr>
-	<th>Language</th>
-	<th>Code</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<td>Javascript</td>
-	<td><code>var foo = "bar";</code></td>
-	</tr>
-	<tr>
-	<td>Ruby</td>
-	<td><code>foo = "bar"</code></td>
-	</tr>
-	</tbody>
-	</table>
-
-	<hr>
-
-	<p>Small images should be shown at their actual size.</p>
-
-	<p><a href="https://camo.githubusercontent.com/16a9d5241f679b6429fc0597f10816dd2665bbb2/687474703a2f2f706c6163656b697474656e2e636f6d2f672f3330302f3230302f" target="_blank"><img src="https://camo.githubusercontent.com/16a9d5241f679b6429fc0597f10816dd2665bbb2/687474703a2f2f706c6163656b697474656e2e636f6d2f672f3330302f3230302f" alt="" data-canonical-src="https://placekitten.com/g/300/200/" style="max-width:100%;"></a></p>
-
-	<p>Large images should always scale down and fit in the content container.</p>
-
-	<p><a href="https://camo.githubusercontent.com/afe46418285497605cf4f6376b75f8c818658fb1/687474703a2f2f706c6163656b697474656e2e636f6d2f672f313230302f3830302f" target="_blank"><img src="https://camo.githubusercontent.com/afe46418285497605cf4f6376b75f8c818658fb1/687474703a2f2f706c6163656b697474656e2e636f6d2f672f313230302f3830302f" alt="" data-canonical-src="https://placekitten.com/g/1200/800/" style="max-width:100%;"></a></p>
-
-	<pre><code>This is the final element on the page and there should be no margin below this.</code></pre>
+	</p>
 
 	<footer class="site-footer">
+		<span class="site-footer-owner"> Our code repository is here </span>
 	  <span class="site-footer-owner"><a href="https://github.com/jasonlong/cayman-theme">Cayman</a> is maintained by <a href="https://github.com/jasonlong">jasonlong</a>.</span>
 	  <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
 	</footer>
