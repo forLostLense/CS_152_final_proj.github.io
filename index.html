@@ -83,7 +83,7 @@
 	</p>
 
 
-	<div class="right">
+	<div class="right" style="float:right">
 		<img src="pics/fineTuningModel.png" class="right-pic"/>
 		<br/>Figure 2: Top-level model we implemented on top of VGG16.<br/>
 		<br/>
@@ -186,12 +186,19 @@
 
 	</p>
 	  
-	<p> But the result of our network is reasonable and improved after above attemps.
+	  <p> But the result of our network is reasonable and improved after above attemps.</p>
+		<div>
 		<img src="pics/comparison.png" class="graph"/>
-	    
+		<br/>Figure 6: Result from other implementation.<br/>	
+	  	</div>
+	      Figure 6 is the result from other implementation that uses IMDB-WIKI dataset and convolutional network. They choose the approach
+	      of finetuning on WideResNet instead of Caffe pretrained weights. As we could see, their network also has the overfitting problem 
+	      that training accuracy soars while validation accuracy barely changes. Based on our result and theirs, we think the keys to success are
+	      choose the right weights to fine-tune on, and use better datasets with less bias and inbalance. 
+	  <p> Originally, </p>
 	
 		
-	</p>
+	
 	
 	<hr>
 	<h9> 
