@@ -22,7 +22,8 @@
 	<h1>
 	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Problem</h1>
 
-	The problem we are attempting to solve is the challenge of estimating a person's face from their age.  Rather than following the classic approach of treating this as a regression problem, we will approach this problem using convolutional neural networks. 
+	The problem we are attempting to solve is the challenge of estimating a person's age from their face.  Rather than following the classic approach of treating this as a regression problem, we will approach 
+	this problem using convolutional neural networks which consists of image classification and softmax. 
 	
 	<hr>
 
@@ -180,17 +181,18 @@
 			<Li>Overfitting: Even in our most functional models, the training set increased in accuracy until it plateaued near 100%, but the validation set quickly stopped increasing in accuracy. Although we tried to avoid this with methods such as incrasing the number of dropout layers and using more images, overfitting still remains a large problem.</Li>
 			<Li>Difficult classification problem: Age estimation is a difficult problem, because people's apparent age may differ from their actual age. Our data set made the problem even more difficult. The images featured faces at a variety of angles, some with makeup or hats, making it more difficult to identify trends.</Li>
 			<Li>Data set size: Out data set contained over 500k images, but were were only able to use a small subset of them due to hardware restrictions.  Training on the entire data set could help us improve accuracy. </Li>
+			<Li>The original paper fine-tuned their model based on pretained weights which is the winner of previous age estimation challenge. However, this set of weights is only available for Caffe framework. It was late for us to change from Keras to Caffe. </Li>
 		</ol>
 
 	</p>
+	  
+	<p> But the result of our network is reasonable and improved after above attemps. 
+	  </p>
 	
 	<hr>
 	<h9> 
 	<a id="user-content-header-3" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Work</h9>
 
-	use pretrained caffe model
-	gender
-	age & gender related?
 
 
 
