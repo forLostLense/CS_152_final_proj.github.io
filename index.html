@@ -181,20 +181,20 @@
 			<Li>Overfitting: Even in our most functional models, the training set increased in accuracy until it plateaued near 100%, but the validation set quickly stopped increasing in accuracy. Although we tried to avoid this with methods such as incrasing the number of dropout layers and using more images, overfitting still remains a large problem.</Li>
 			<Li>Difficult classification problem: Age estimation is a difficult problem, because people's apparent age may differ from their actual age. Our data set made the problem even more difficult. The images featured faces at a variety of angles, some with makeup or hats, making it more difficult to identify trends.</Li>
 			<Li>Data set size: Out data set contained over 500k images, but were were only able to use a small subset of them due to hardware restrictions.  Training on the entire data set could help us improve accuracy. </Li>
-			<Li>The original paper fine-tuned their model based on pretained weights which is the winner of previous age estimation challenge. However, this set of weights is only available for Caffe framework. It was late for us to shift from Keras to Caffe. </Li>
+			<Li>The original paper on which we based much of our approach fine-tuned their model based on pretrained weights. The model described in the papwer was the winner of a previous age estimation challenge. However, this set of weights is only available for the Caffe framework. When we realized our methods were not working, it was too late for us to shift from Keras to Caffe. </Li>
 		</ol>
 
 	</p>
 	  
-	  <p> But the result of our network is reasonable and improved after above attemps.</p>
+	  <p> Even so, we are pleased that the results of our network did show some improvement after the attempts described above.</p>
 		<div>
 		<img src="pics/comparison.png" class="graph"/>
 		<br/>Figure 6: Result from other implementation.<br/>	
 	  	</div>
-	      The above diagram is the result from another implementation that uses IMDB-WIKI dataset and convolutional network. They choose the approach
+	      The above diagram is the result from another implementation that used the IMDB-WIKI dataset and a convolutional network. They choose the approach
 	      of finetuning on WideResNet instead of Caffe pretrained weights. As we could see, their network has the overfitting problem as well.
-	      The training accuracy soars while validation accuracy barely changes. Combine on our result and theirs, we think the keys to success of this problem are
-	      right weights to fine-tune on, and less biased datasets. 
+	      The training accuracy soars while validation accuracy barely changes. Combining our results with theirs, we think the keys to success of this problem are finding
+	      right weights to fine-tune on and using a less biased datasets. 
 	  <p> The progress we've made through the above 5 attemps, is our network does learn something though the improvement is not very significant
 	      . During first seven epochs, validation loss keeps decreasing and validation accuracy increases from 20% to 30%, which approximately matches how fast training accuracy increases. </p>
 	
@@ -215,6 +215,15 @@
 	  	</ol>
 
 	</p>
+	<hr>
+
+	<h1> 
+	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code</h1>
+
+	You can view our code <a href="https://github.com/forLostLense/forLostLense.github.io/tree/master/code">here</a>.
+
+
+	<hr>
 	<h1> 
 	<a id="user-content-header-1" class="anchor" href="#header-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h1>
 	<li>A.Lanitis, C.Draganova, C.Christodoulou. "Comparing different classifiers for automatic age estimation". IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics) (Volume: 34, Issue: 1, Feb. 2004).</li>
